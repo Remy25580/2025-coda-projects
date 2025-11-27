@@ -73,8 +73,10 @@ $page->addContent(<<<HTML
 foreach ($artists as $artist) {
     $artistInfo = <<<HTML
     <div class="artist">
-        <img src="{$artist["cover"]}" alt="cover de l'artiste {$artist["name"]}">
-        <div class="art-name">{$artist["name"]} </div>
+        <a href="artist.php?id={$artist["id"]}">
+            <img src="{$artist["cover"]}" alt="cover de l'artiste {$artist["name"]}">
+            <div class="art-name">{$artist["name"]} </div>
+        </a>
     </div>
     <br>
     HTML;
