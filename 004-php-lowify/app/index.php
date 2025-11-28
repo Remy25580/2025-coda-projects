@@ -84,8 +84,17 @@ img{
 h1{
     font-size: 50px;
     margin-top: 50px;
-    margin-bottom: 70px;
+    margin-bottom: 10px;
     margin-left: 40px;
+}
+aside{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 15px;
+    text-align: right;
+}
+aside form input{
+    border-radius: 5px;
 }
 .tops{
     display: flex;
@@ -136,6 +145,12 @@ $page->addRawStyle($rawCSS);
 $page->addContent(<<<HTML
     <body>
     <h1>Bienvenue sur Lowify!</h1>
+    <aside class="search">
+        <form action="search.php" method="GET">
+            <input type="text" name="query" placeholder="Rechercher...">
+            <input type="submit" value="Rechercher">
+        </form>
+    </aside>
     <div class="tops">
     <div class="top-trending column">
     <h3>Top trendings</h3>
