@@ -14,6 +14,9 @@ body{
     color: white;
     text-align: center;
 }
+a{
+    color: #658d8d;
+}
 p{
     font-size: 25px;
 }

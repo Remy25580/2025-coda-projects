@@ -31,12 +31,15 @@ $html = <<<HTML
 HTML;
 
 $rawCSS = <<<CSS
-body{
+body {
     background-color: darkslategrey;
     font-family: Consolas;
     margin: 0;
     padding: 20px;
     color: white;
+}
+a{
+    color: #658d8d;
 }
 h1{
     margin-left: 25px;

@@ -2,6 +2,7 @@
 
 require_once('inc/page.inc.php');
 require_once('inc/database.inc.php');
+$idArtist = (int)$_GET["id"] ?? "none;";
 
 //Implémentation de la base de données
 try {
@@ -14,7 +15,7 @@ try {
     echo $e->getMessage();
 }
 
-//Fonctions
+//==========FONCTIONS==============
 function setMonthlyListeners(int $nb): string{
     $monthlyListeners = "";
     if($nb >= 1000000){
@@ -33,11 +34,13 @@ function setMonthlyListeners(int $nb): string{
 
 function setDuration(int $duration): string{
     $minute = (string)round($duration / 60, 0);
-    $seconde = (string)($duration % 60);
+    if ($duration % 60 < 10){
+        $seconde = "0" . (string)($duration % 60);
+    } else {
+        $seconde = (string)($duration % 60);
+    }
     return "$minute:$seconde";
 }
-
-$idArtist = (int)$_GET["id"];
 
 //============REQUÊTES SQL============//
 //Récupération de informations de l'artiste dans $artistInfos
@@ -79,7 +82,7 @@ try{
 //Récupération de tout les albums
 $artistAlbums = [];
 $sqlAlbums = <<<SQL
-SELECT album.name, album.cover, album.release_date
+SELECT album.id, album.name, album.cover, album.release_date
 FROM album
 WHERE album.artist_id = $idArtist
 SQL;
@@ -99,7 +102,9 @@ body {
     padding: 20px;
     color: white;
 }
-
+a{
+    color: #658d8d;
+}
 .page-layout {
     display: flex;
     justify-content: space-between;
@@ -202,7 +207,7 @@ CSS;
 
 //===========CRÉATION DU CONTENU HTML==============
 
-$page = new HTMLPage(title: "{$artistInfos[0]["name"]}");
+$page = new HTMLPage(title: "Lowify - {$artistInfos[0]["name"]}");
 $page->addRawStyle($rawCSS);
 
 //Injection des informations de l'artiste
@@ -242,7 +247,7 @@ $page->addContent(<<<HTML
     </div>
     HTML);
 
-//ajout des albums
+//Injection des albums
 $page->addContent(<<<HTML
     <div class="albums">
     <h3>Albums de {$artistInfos[0]["name"]} :</h3>
@@ -253,7 +258,7 @@ foreach($artistAlbums as $album){
     $page->addContent(<<<HTML
         <div class="album">
             <img src="{$album["cover"]}" alt="{$album["name"]}">
-            <p>{$album["name"]}</p>
+            <p><a href="album.php?id={$album["id"]}">{$album["name"]}</a></p>
             <p>{$album["release_date"]}</p>
         </div>
         HTML);
