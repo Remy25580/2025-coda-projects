@@ -91,6 +91,9 @@ body {
 a{
     color: #658d8d;
 }
+img{
+    border-radius: 5px;
+}
 .album-container{
     display: flex;
     margin-left: 15px;

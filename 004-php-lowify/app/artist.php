@@ -105,6 +105,9 @@ body {
 a{
     color: #658d8d;
 }
+img{
+    border-radius: 5px;
+}
 .page-layout {
     display: flex;
     justify-content: space-between;

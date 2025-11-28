@@ -27,7 +27,7 @@ try{
 
 $html = <<<HTML
 <body>
-<h1>Liste des Artistes</h1>
+<h1>Artistes : </h1>
 HTML;
 
 $rawCSS = <<<CSS
@@ -41,6 +41,9 @@ body {
 a{
     color: #658d8d;
 }
+img{
+    border-radius: 5px;
+}
 h1{
     margin-left: 25px;
 }
@@ -50,7 +53,6 @@ h1{
 }
 .artist{
     padding: 8px;
-    border: 1px solid black;
     display: inline-block;
     margin-top: 70px;
     margin-bottom: 70px;
@@ -63,7 +65,7 @@ h1{
     height: auto;
 }
 .art-name{
-    font-size: 19px;
+    font-size: 20px;
 }
 CSS;
 
