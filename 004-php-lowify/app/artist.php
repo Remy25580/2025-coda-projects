@@ -82,9 +82,9 @@ try{
 //Récupération de tout les albums
 $artistAlbums = [];
 $sqlAlbums = <<<SQL
-SELECT album.id, album.name, album.cover, album.release_date
+SELECT id, name, cover, release_date
 FROM album
-WHERE album.artist_id = $idArtist
+WHERE album.artist_id = $idArtist;
 SQL;
 
 try {
