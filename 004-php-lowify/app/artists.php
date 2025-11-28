@@ -34,6 +34,9 @@ $rawCSS = <<<CSS
 body{
     background-color: darkslategrey;
     font-family: Consolas;
+    margin: 0;
+    padding: 20px;
+    color: white;
 }
 h1{
     margin-left: 25px;
