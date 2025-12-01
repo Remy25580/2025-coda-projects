@@ -50,22 +50,29 @@ h1{
 .artists{
     display: flex;
     flex-wrap: wrap;
+    background: rgba(255,255,255,0.05); 
+    border-radius: 5px;
 }
 .artist{
-    padding: 8px;
-    display: inline-block;
-    margin-top: 70px;
-    margin-bottom: 70px;
-    margin-right: 100px;
-    margin-left: 100px;
-    
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+    margin-top: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    width: 1416.8px;
 }
 .artist img{
-    width: 250px;
+    width: 120px;
     height: auto;
 }
 .art-name{
-    font-size: 20px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column; 
+}
+#nom{
+    font-size: 30px;
 }
 CSS;
 
@@ -81,10 +88,12 @@ $page->addContent(<<<HTML
 foreach ($artists as $artist) {
     $artistInfo = <<<HTML
     <div class="artist">
-        <a href="artist.php?id={$artist["id"]}">
-            <img src="{$artist["cover"]}" alt="cover de l'artiste {$artist["name"]}">
-            <div class="art-name">{$artist["name"]} </div>
-        </a>
+        <a href="artist.php?id={$artist["id"]}"><img src="{$artist["cover"]}" alt="cover de l'artiste {$artist["name"]}"></a>
+        <div class="art-name">
+            <a id="nom" href="artist.php?id={$artist["id"]}">{$artist["name"]}</a>
+            <p><em>{$artist["biography"]}</em></p>
+        </div>
+        
     </div>
     <br>
     HTML;
