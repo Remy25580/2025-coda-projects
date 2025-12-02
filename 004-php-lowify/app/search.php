@@ -2,7 +2,7 @@
 
 require_once('inc/page.inc.php');
 require_once('inc/database.inc.php');
-$search = $_GET['query'] ?? null;
+$search = $_GET['search'] ?? null;
 //Initialisation de la base de données
 
 try {
