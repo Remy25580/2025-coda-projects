@@ -2,7 +2,6 @@
 
 require_once('inc/page.inc.php');
 require_once('inc/database.inc.php');
-$idAlbum = $_GET['id'] ?? "none";
 //Initialisation de la base de données
 
 try {
@@ -147,7 +146,7 @@ $page->addContent(<<<HTML
     <h1>Bienvenue sur Lowify!</h1>
     <aside class="search">
         <form action="search.php" method="GET">
-            <input type="text" name="query" placeholder="Rechercher...">
+            <input type="text" name="search" placeholder="Rechercher...">
             <input type="submit" value="Rechercher">
         </form>
     </aside>
