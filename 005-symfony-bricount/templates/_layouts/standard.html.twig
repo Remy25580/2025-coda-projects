@@ -2,7 +2,9 @@
 
 {% block body %}
     <div class="container">
-        <h1>template standard</h1>
-        {% block content %}{% endblock %}
+
+        {% include '_components/menustandard.html.twig' %}
+        <div class="contenu">
+            {% block content %}{% endblock %}</div>
     </div>
 {% endblock %}

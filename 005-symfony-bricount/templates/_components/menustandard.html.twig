@@ -1,0 +1,17 @@
+{% set current_route = app.request.uri %}
+
+<div id="menu">
+    <h3 id="menu-titre">Bricount</h3>
+
+    <div>
+
+        <div class="lien-menu">
+            <a href="{{ path("app_login") }}" class="{% if "login" in current_route %} active {% endif %}">Log in</a>
+        </div>
+        <div class="lien-menu">
+            <a href="{{ path("app_register") }}"
+               class="{% if "register" in current_route %} active {% endif %}">Register</a>
+        </div>
+    </div>
+
+</div>
