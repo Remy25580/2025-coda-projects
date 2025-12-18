@@ -19,14 +19,14 @@ abstract class BaseEntity
     protected null|\DateTime $updatedDate;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     protected null|User $updatedBy;
 
     #[ORM\Column(name: 'deleted_date', type: Types::DATETIME_MUTABLE, nullable: true)]
     protected null|\DateTime $deletedDate;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     protected null|User $deletedBy;
 
     #[ORM\Column(name: 'is_deleted', type: Types::BOOLEAN, nullable: false, options: ['default' => false])]

@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Wallet;
+use App\Entity\XUserWallet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,28 +18,14 @@ class WalletRepository extends ServiceEntityRepository
         parent::__construct($registry, Wallet::class);
     }
 
-    //    /**
-    //     * @return Wallet[] Returns an array of Wallet objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('w')
-    //            ->andWhere('w.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('w.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findWalletsForUser(User $user): array
+    {
+        $qb = $this
+            ->createQueryBuilder('w')
+            ->innerJoin(XUserWallet::class, 'xuw', 'WITH', 'xuw.wallet = w.id AND xuw.isDeleted = false AND xuw.targetUser = :user')
+            ->andWhere('w.isDeleted = false')
+            ->setParameter('user', $user);
 
-    //    public function findOneBySomeField($value): ?Wallet
-    //    {
-    //        return $this->createQueryBuilder('w')
-    //            ->andWhere('w.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        return $qb->getQuery()->getResult();
+    }
 }
