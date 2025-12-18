@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Expense;
+use App\Entity\Wallet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,28 +17,27 @@ class ExpenseRepository extends ServiceEntityRepository
         parent::__construct($registry, Expense::class);
     }
 
-    //    /**
-    //     * @return Expense[] Returns an array of Expense objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('e.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findExpensesForWallet(Wallet $wallet, int $page, int $limit): array
+    {
+        $qb = $this
+            ->createQueryBuilder('e')
+            ->innerJoin('e.wallet', 'w', 'WITH', 'w.isDeleted = false AND w.id = :walletId')
+            ->andWhere('e.isDeleted = false')
+            ->orderBy('e.createdDate', 'DESC')
+            ->setMaxResults($limit)
+            ->setFirstResult(($page - 1) * $limit)
+            ->setParameter('walletId', $wallet->getId());
 
-    //    public function findOneBySomeField($value): ?Expense
-    //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        return $qb->getQuery()->getResult();
+    }
+
+    public function countExpensesForWallet(Wallet $wallet): int
+    {
+        return $this->count([
+            'wallet' => $wallet,
+            'isDeleted' => false
+        ]);
+    }
+
+
 }

@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
+use App\Entity\Wallet;
 use App\Entity\XUserWallet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -16,28 +18,15 @@ class XUserWalletRepository extends ServiceEntityRepository
         parent::__construct($registry, XUserWallet::class);
     }
 
-    //    /**
-    //     * @return XUserWallet[] Returns an array of XUserWallet objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('x')
-    //            ->andWhere('x.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('x.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function getUserAccessOnWallet(User $user, Wallet $wallet): null|XUserWallet
+    {
+        $qb = $this->createQueryBuilder('xuw')
+            ->innerJoin('xuw.targetUser', 'u', 'WITH', 'u.id = :userId')
+            ->innerJoin('xuw.wallet', 'w', 'WITH', 'w.isDeleted = false AND w.id = :walletId')
+            ->andWhere('xuw.isDeleted = false')
+            ->setParameter('userId', $user->getId())
+            ->setParameter('walletId', $wallet->getId());
 
-    //    public function findOneBySomeField($value): ?XUserWallet
-    //    {
-    //        return $this->createQueryBuilder('x')
-    //            ->andWhere('x.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }
